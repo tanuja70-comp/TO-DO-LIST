@@ -3,7 +3,7 @@
 {% block body %}
 
 <div class="container my-3">
-  <div class="containr2 my-3 rounded p-3">
+  <div class="container2 my-3 rounded p-3">
     <h1>Add Task</h1>
     <form action="/" method="POST">
 
@@ -56,9 +56,9 @@
           <td>{{todo.status}}</td>
           <td> 
               <div class="btns">
-              <a href="/update/{{todo.sno}}"class="btn-primary" type="submit">Update</a>
+              <a href="/update/{{todo.sno}}"class="btn btn-primary"    type="submit">Update</a>
               <a href="/delete/{{todo.sno}}"class="btn btn-danger" type="submit">Delete</a>
-              <a href="/mark/{{todo.sno}}"class="btn btn-success" type="submit">Mark as completed</a>
+              <a href="/mark/{{todo.sno}}"class="btn btn-success"  type="submit">Mark as completed</a>
               </div>
 
           </td>
