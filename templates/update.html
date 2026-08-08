@@ -5,7 +5,7 @@
 <div class="container my-3">
     <div class="containr2 my-3 rounded p-3">
         <h1>Add Task</h1>
-        <form>
+        <form action="/update/{{todo.sno}}" method="POST">
 
             <div class="mb-3">
                 <label for="title" class="form-label">Task Title </label>
@@ -23,3 +23,5 @@
     </div>
 
 </div>
+
+{% endblock body %}

@@ -5,7 +5,7 @@
 <div class="container my-3">
   <div class="containr2 my-3 rounded p-3">
     <h1>Add Task</h1>
-    <form>
+    <form action="/" method="POST">
 
       <div class="mb-3">
         <label for="title" class="form-label">Task Title </label>
@@ -32,6 +32,7 @@
     </div>
 
     {% else %}
+    <div class="table-container">
 
     <table class="table">
       <thead>
@@ -54,15 +55,18 @@
           <td>{{todo.date_created}}</td>
           <td>{{todo.status}}</td>
           <td> 
-              <button class="btn btn-primary" type="submit">Update</button>
-              <button class="btn btn-primary" type="submit">Delete</button>
-              <button class="btn btn-primary" type="submit">Mark as completed</button>
+              <div class="btns">
+              <a href="/update/{{todo.sno}}"class="btn-primary" type="submit">Update</a>
+              <a href="/delete/{{todo.sno}}"class="btn btn-danger" type="submit">Delete</a>
+              <a href="/mark/{{todo.sno}}"class="btn btn-success" type="submit">Mark as completed</a>
+              </div>
 
           </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
+    </div>
     {% endif %}
 
   </div>
@@ -70,5 +74,5 @@
 
 
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 {% endblock body %}
