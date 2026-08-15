@@ -1,71 +1,64 @@
-from flask import Flask, render_template, request, redirect
-from datetime import datetime
+from flask import Flask, render_template, request, redirect, url_for
+from database import *
 
 app = Flask(__name__)
 
-todos = []
-next_id = 1
 
-
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/", methods=["GET", "POST"])
 def home():
 
-    global next_id
+    if request.method == "POST":
 
-    if request.method == 'POST':
+        title = request.form["title"]
+        desc = request.form["desc"]
 
-        title = request.form['title']
-        desc = request.form['desc']
+        add_todo(title, desc)
 
-        todo = {
-            "sno": next_id,
-            "title": title,
-            "desc": desc,
-            "date_created": datetime.now(),
-            "status": "Pending"
-        }
-        todos.append(todo)
-        next_id += 1
+        return redirect(url_for("home"))
 
-    return render_template("index.html", allTodo=todos)
+    allTodo = get_all_todos()
+
+    return render_template("index.html", allTodo=allTodo)
 
 
-
-@app.route('/update/<int:sno>', methods=['GET', 'POST'])
+@app.route("/update/<int:sno>", methods=["GET", "POST"])
 def update(sno):
-    todo = None
-    for task in todos:
-        if task["sno"] == sno:
-            todo = task
-            break
+
+    todo = get_todo(sno)
 
     if todo is None:
         return "Task Not Found"
 
     if request.method == "POST":
 
-        todo["title"] = request.form["title"]
-        todo["desc"] = request.form["desc"]
+        title = request.form["title"]
+        desc = request.form["desc"]
 
-        return redirect("/")
+        update_todo(sno, title, desc)
+
+        return redirect(url_for("home"))
 
     return render_template("update.html", todo=todo)
 
-@app.route('/delete/<int:sno>')
-def delete(sno):
-    for task in todos:
-        if task["sno"] == sno:
-            todos.remove(task)
-            break
-    return redirect("/")
 
-@app.route('/mark/<int:sno>')
-def mark_completed(sno):
-    for task in todos:
-        if task["sno"] == sno:
-            task["status"] = "Completed"
-            break
-    return redirect("/")
+@app.route("/delete/<int:sno>")
+def delete(sno):
+
+    delete_todo(sno)
+
+    return redirect(url_for("home"))
+
+
+@app.route("/mark/<int:sno>")
+def mark_task(sno):
+
+    mark_completed(sno)
+
+    return redirect(url_for("home"))
+
 
 if __name__ == "__main__":
+
+    init_db()
+
     app.run(debug=True)
