@@ -15,9 +15,9 @@ body {
 }
 
 .container2 {
-    background-color : palevioletred;
+    background-color : pink;
     background: radius 20px;
-    color : white;
+    color : black;
     font-family :'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
